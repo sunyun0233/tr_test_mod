@@ -52,7 +52,7 @@ namespace test_mod.Items
             Projectile.NewProjectile(source, position, velocity.RotatedBy(0.05f), type, damage, knockback, player.whoAmI);
             Projectile.NewProjectile(source, position, velocity.RotatedBy(-0.05f), type, damage, knockback, player.whoAmI);
             float rot = Main.rand.NextFloat(-0.02f,0.02f);//这是tml自带的随机数方法
-													//左参数为下限，右参数为上限，上限无法取到
+					//左参数为下限，右参数为上限，上限无法取到
 		    //本函数用于在武器执行发射弹幕时的操作，返回false可阻止武器原本的发射。true则保留。
             //这里我额外生成两个散射剑气,注意rotatedby是将向量偏转指定弧度，（6.28也就是2PI为一圈）
             //生成一个弹幕，source是生成源，直接使用参数即可。第二个参数是生成位置，position在玩家处。
@@ -71,8 +71,8 @@ namespace test_mod.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();//创建一个配方
-            recipe.AddIngredient(ItemID.Wood, 10);//添加第二种材料（10木材）
-            recipe.AddTile(TileID.Campfire);//加入合成站(这里为了有趣我改成了篝火)
+            recipe.AddIngredient(ItemID.Wood, 10);//添加材料（10木材）
+            recipe.AddTile(TileID.Campfire);//加入合成站
             recipe.Register();
         }
      }
