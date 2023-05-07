@@ -1,5 +1,6 @@
-using Microsoft.Xna.Framework;
+ï»¿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,53 +10,69 @@ namespace test_mod.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("gun"); //ÎªÄãµÄÎäÆ÷ÃüÃû
-            Tooltip.SetDefault("ÕâÊÇÄãµÄµÚÒ»°ÑÇ¹.\nÕâÊÇÒ»¸öÔ¶³ÌÎäÆ÷µÄÊ¾Àı¡£");//ÕâÊÇÎäÆ÷µÄÌáÊ¾Óï£¬ÀûÓÃ\n½øĞĞ»»ĞĞ
+            DisplayName.SetDefault("æœ—åŸºåŠªæ–¯ä¹‹æª"); //ä¸ºä½ çš„æ­¦å™¨å‘½å
+            Tooltip.SetDefault("æ˜â€”â€”æ—¥â€”â€”é¦™â€”â€”");//è¿™æ˜¯æ­¦å™¨çš„æç¤ºè¯­ï¼Œåˆ©ç”¨\nè¿›è¡Œæ¢è¡Œ
         }
         public override void SetDefaults()
         {
-            //ÒÔÏÂÊÇÎäÆ÷ÎïÆ·µÄ»ù±¾ÊôĞÔ
-            Item.damage = 210000000;//ÎïÆ·µÄ»ù´¡ÉËº¦
-            Item.crit = -100;//ÎïÆ·µÄ±©»÷ÂÊ
-            Item.DamageType = DamageClass.Ranged;//ÎïÆ·µÄÉËº¦ÀàĞÍ
-            Item.width = 40;//ÎïÆ·ÒÔµôÂäÎïĞÎÊ½´æÔÚµÄÅö×²Ïä¿í¶È
-            Item.height = 40;//ÎïÆ·ÒÔµôÂäÎïĞÎÊ½´æÔÚµÄÅö×²Ïä¸ß¶È
-            Item.useTime = 1;//ÎïÆ·Ò»´ÎÊ¹ÓÃËù¾­ÀúµÄÊ±¼ä£¨ÒÔÖ¡Îªµ¥Î»£©(Õı³£Çé¿ö1Ãë60Ö¡)
-            Item.shoot = 304;//ÎïÆ··¢ÉäµÄµ¯Ä»ID(Âêè§ÅÚ)
-            Item.shootSpeed = 24f;//ÎïÆ··¢ÉäµÄµ¯Ä»ËÙ¶È£¨ÏñËØ/Ö¡£©£¨Ò»¸öÎï¿é³¤16ÏñËØ£©
-            Item.useAnimation = 5;//ÎïÆ·²¥·ÅÊ¹ÓÃ¶¯»­Ëù¾­ÀúµÄÊ±¼ä
-            Item.useStyle = ItemUseStyleID.Shoot;//Ê¹ÓÃ¶¯×÷ swingÎª»ÓÎè shootÎªÉä»÷
-            Item.knockBack = 2;//ÎïÆ·»÷ÍË
-            Item.value = Item.buyPrice(1, 22, 0, 0);//¼ÛÖµ  buyprice·½·¨¿ÉÒÔÖ±½ÓÉèÖÃ³ÉÖ±¹ÛµÄÇ®±ÒÊı
-            Item.rare = ItemRarityID.Pink;//Ï¡ÓĞ¶È
-            Item.UseSound = SoundID.Item36;//Ê¹ÓÃÊ±µÄÉùÒô
-            Item.autoReuse = true;//×Ô¶¯Á¬·¢
-                                  //ÒÔÏÂÊÇÎäÆ÷½ø½×ÊôĞÔ
-            Item.noUseGraphic = false;//ÎªtrueÊ±»áÒş²ØÎïÆ·Ê¹ÓÃ¶¯»­
-            Item.noMelee = true;//ÎªtrueÊ±»áÈ¡ÏûÎïÆ·½üÕ½ÅĞ¶¨
-            Item.useAmmo = AmmoID.Bullet;//ÎªÆäËûAmmoIDÊ±¿ÉÒÔÏûºÄÖ¸¶¨µ¯Ò©
-            Item.mana = 0;//Îª´óÓÚÁãµÄÊıÊ±Ã¿´ÎÊ¹ÓÃ»áÏûºÄÄ§Á¦Öµ
-            Item.scale = 1.2f;//ÎïÆ·Ê¹ÓÃ¶¯»­µÄ´óĞ¡
+            //ä»¥ä¸‹æ˜¯æ­¦å™¨ç‰©å“çš„åŸºæœ¬å±æ€§
+            Item.damage = 21000000;//ç‰©å“çš„åŸºç¡€ä¼¤å®³
+            Item.crit = -100;//ç‰©å“çš„æš´å‡»ç‡
+            Item.DamageType = DamageClass.Ranged;//ç‰©å“çš„ä¼¤å®³ç±»å‹
+            Item.width = 40;//ç‰©å“ä»¥æ‰è½ç‰©å½¢å¼å­˜åœ¨çš„ç¢°æ’ç®±å®½åº¦
+            Item.height = 40;//ç‰©å“ä»¥æ‰è½ç‰©å½¢å¼å­˜åœ¨çš„ç¢°æ’ç®±é«˜åº¦
+            Item.useTime = 3;//ç‰©å“ä¸€æ¬¡ä½¿ç”¨æ‰€ç»å†çš„æ—¶é—´ï¼ˆä»¥å¸§ä¸ºå•ä½ï¼‰(æ­£å¸¸æƒ…å†µ1ç§’60å¸§)
+            Item.shoot = 173;//ç‰©å“å‘å°„çš„å¼¹å¹•ID(ç›ç‘™ç‚®)
+            Item.shootSpeed = 24f;//ç‰©å“å‘å°„çš„å¼¹å¹•é€Ÿåº¦ï¼ˆåƒç´ /å¸§ï¼‰ï¼ˆä¸€ä¸ªç‰©å—é•¿16åƒç´ ï¼‰
+            Item.useAnimation = 5;//ç‰©å“æ’­æ”¾ä½¿ç”¨åŠ¨ç”»æ‰€ç»å†çš„æ—¶é—´
+            Item.useStyle = ItemUseStyleID.Shoot;//ä½¿ç”¨åŠ¨ä½œ swingä¸ºæŒ¥èˆ shootä¸ºå°„å‡»
+            Item.knockBack = 2;//ç‰©å“å‡»é€€
+            Item.value = Item.buyPrice(1, 22, 0, 0);//ä»·å€¼  buypriceæ–¹æ³•å¯ä»¥ç›´æ¥è®¾ç½®æˆç›´è§‚çš„é’±å¸æ•°
+            Item.rare = ItemRarityID.Pink;//ç¨€æœ‰åº¦
+            Item.UseSound = SoundID.Item36;//ä½¿ç”¨æ—¶çš„å£°éŸ³
+            Item.autoReuse = true;//è‡ªåŠ¨è¿å‘
+                                  //ä»¥ä¸‹æ˜¯æ­¦å™¨è¿›é˜¶å±æ€§
+            Item.noUseGraphic = false;//ä¸ºtrueæ—¶ä¼šéšè—ç‰©å“ä½¿ç”¨åŠ¨ç”»
+            Item.noMelee = false;//ä¸ºtrueæ—¶ä¼šå–æ¶ˆç‰©å“è¿‘æˆ˜åˆ¤å®š
+            Item.mana = 0;//ä¸ºå¤§äºé›¶çš„æ•°æ—¶æ¯æ¬¡ä½¿ç”¨ä¼šæ¶ˆè€—é­”åŠ›å€¼
+            Item.scale = 1.2f;//ç‰©å“ä½¿ç”¨åŠ¨ç”»çš„å¤§å°
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            //±¾º¯ÊıÊÇÎäÆ÷½üÕ½»ÓÎèÊ±´¥·¢µÄ²Ù×÷£¬Í¨³£ÎªÉú³ÉÁ£×Ó
+            //æœ¬å‡½æ•°æ˜¯æ­¦å™¨è¿‘æˆ˜æŒ¥èˆæ—¶è§¦å‘çš„æ“ä½œï¼Œé€šå¸¸ä¸ºç”Ÿæˆç²’å­
             //Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, DustID.Torch, 0, 0, 0, default, 2);
             base.MeleeEffects(player, hitbox);
         }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            //æœ¬å‡½æ•°ç”¨äºåœ¨æ­¦å™¨æ‰§è¡Œå‘å°„å¼¹å¹•æ—¶çš„æ“ä½œï¼Œè¿”å›falseå¯é˜»æ­¢æ­¦å™¨åŸæœ¬çš„å‘å°„ã€‚trueåˆ™ä¿ç•™ã€‚
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position, velocity.RotatedBy(0.1f), type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position, velocity.RotatedBy(-0.1f), type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position, velocity.RotatedBy(0.05f), type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position, velocity.RotatedBy(-0.05f), type, damage, knockback, player.whoAmI);
+            float rot = Main.rand.NextFloat(-0.02f,0.02f);//è¿™æ˜¯tmlè‡ªå¸¦çš„éšæœºæ•°æ–¹æ³•
+													//å·¦å‚æ•°ä¸ºä¸‹é™ï¼Œå³å‚æ•°ä¸ºä¸Šé™ï¼Œä¸Šé™æ— æ³•å–åˆ°
+		    //æœ¬å‡½æ•°ç”¨äºåœ¨æ­¦å™¨æ‰§è¡Œå‘å°„å¼¹å¹•æ—¶çš„æ“ä½œï¼Œè¿”å›falseå¯é˜»æ­¢æ­¦å™¨åŸæœ¬çš„å‘å°„ã€‚trueåˆ™ä¿ç•™ã€‚
+            //è¿™é‡Œæˆ‘é¢å¤–ç”Ÿæˆä¸¤ä¸ªæ•£å°„å‰‘æ°”,æ³¨æ„rotatedbyæ˜¯å°†å‘é‡åè½¬æŒ‡å®šå¼§åº¦ï¼Œï¼ˆ6.28ä¹Ÿå°±æ˜¯2PIä¸ºä¸€åœˆï¼‰
+            //ç”Ÿæˆä¸€ä¸ªå¼¹å¹•ï¼Œsourceæ˜¯ç”Ÿæˆæºï¼Œç›´æ¥ä½¿ç”¨å‚æ•°å³å¯ã€‚ç¬¬äºŒä¸ªå‚æ•°æ˜¯ç”Ÿæˆä½ç½®ï¼Œpositionåœ¨ç©å®¶å¤„ã€‚
+            //ç¬¬ä¸‰ä¸ªå‚æ•°æ˜¯é€Ÿåº¦ï¼Œå†³å®šå¼¹å¹•çš„åˆå§‹é€Ÿåº¦ï¼ˆäºŒç»´å‘é‡ï¼‰ï¼Œç¬¬å››ä¸ªå‚æ•°æ˜¯IDï¼Œç¬¬äº”ä¸ªå‚æ•°æ˜¯ä¼¤å®³ï¼Œç¬¬å…­ä¸ªå‚æ•°æ˜¯é¸¡è…¿
+            //ç¬¬ä¸ƒä¸ªå‚æ•°æ˜¯å¼¹å¹•æ‰€æœ‰è€…çš„ç´¢å¼•ï¼Œé€šå¸¸æœ‰playerå‚æ•°æ—¶ç›´æ¥å¡«player.whoamiï¼Œä¸å¡«è¿™ä¸ªå‚æ•°å¯èƒ½ä¼šå¼•å‘é”™è¯¯ã€‚
+            return false;
+        }
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            //±¾º¯ÊıÎª½üÕ½¹¥»÷µ½NPCÊ±½øĞĞµÄ²Ù×÷£¬Í¨³£Îª²úÉúµ¯Ä»»òÕßBUFF
-            target.AddBuff(BuffID.OnFire, 120);//addbuff·½·¨µÚÒ»¸ö²ÎÊıÎªÒªÉÏµÄBUFFID£¬µÚ¶ş¸öÎª³ÖĞøÊ±¼ä£¨Ö¡£©
-            player.AddBuff(BuffID.NebulaUpLife3, 30);//ÎªÍæ¼ÒÌí¼Ó°ëÃëĞÇÔÆ»Ø¸´BUFF
-                                                     //Ô¶³ÌÎäÆ÷¾Í²»ĞèÒªÁË
+            //æœ¬å‡½æ•°ä¸ºè¿‘æˆ˜æ”»å‡»åˆ°NPCæ—¶è¿›è¡Œçš„æ“ä½œï¼Œé€šå¸¸ä¸ºäº§ç”Ÿå¼¹å¹•æˆ–è€…BUFF
+            target.AddBuff(BuffID.OnFire, 120);//addbuffæ–¹æ³•ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºè¦ä¸Šçš„BUFFIDï¼Œç¬¬äºŒä¸ªä¸ºæŒç»­æ—¶é—´ï¼ˆå¸§ï¼‰
+            player.AddBuff(BuffID.NebulaUpLife3, 30);//ä¸ºç©å®¶æ·»åŠ åŠç§’æ˜Ÿäº‘å›å¤BUFF
+                                                     //è¿œç¨‹æ­¦å™¨å°±ä¸éœ€è¦äº†
             base.OnHitNPC(player, target, damage, knockBack, crit);
         }
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();//´´½¨Ò»¸öÅä·½
-            recipe.AddIngredient(ItemID.Wood, 10);//Ìí¼ÓµÚ¶şÖÖ²ÄÁÏ£¨10Ä¾²Ä£©
-            recipe.AddTile(TileID.Campfire);//¼ÓÈëºÏ³ÉÕ¾(ÕâÀïÎªÁËÓĞÈ¤ÎÒ¸Ä³ÉÁËóô»ğ)
+            Recipe recipe = CreateRecipe();//åˆ›å»ºä¸€ä¸ªé…æ–¹
+            recipe.AddIngredient(ItemID.Wood, 10);//æ·»åŠ ç¬¬äºŒç§ææ–™ï¼ˆ10æœ¨æï¼‰
+            recipe.AddTile(TileID.Campfire);//åŠ å…¥åˆæˆç«™(è¿™é‡Œä¸ºäº†æœ‰è¶£æˆ‘æ”¹æˆäº†ç¯ç«)
             recipe.Register();
         }
      }
